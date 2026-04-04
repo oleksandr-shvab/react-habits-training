@@ -13,6 +13,9 @@ function App() {
   });
 
   function addHabit(habit) {
+    if (!habit) {
+      return;
+    }
     const newHabit = {
       id: crypto.randomUUID(),
       name: habit,

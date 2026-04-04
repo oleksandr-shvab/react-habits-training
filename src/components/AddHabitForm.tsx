@@ -6,11 +6,14 @@ import { Button } from "./ui/button";
 function AddHabitForm({ addHabit }) {
   const [habit, setHabit] = React.useState("");
 
+  const inputRef = React.useRef(null);
+
   function handleSubmit(event) {
     event.preventDefault();
     addHabit(habit);
 
     setHabit("");
+    inputRef.current?.focus();
   }
 
   return (
@@ -21,12 +24,15 @@ function AddHabitForm({ addHabit }) {
         </label>
         <input
           id="habit"
+          ref={inputRef}
           value={habit}
           onChange={(event) => setHabit(event.target.value)}
           className="text-base border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400"
         />
       </div>
-      <Button type="submit" className="text-base px-5 py-2">Add</Button>
+      <Button type="submit" className="text-base px-5 py-2">
+        Add
+      </Button>
     </form>
   );
 }
