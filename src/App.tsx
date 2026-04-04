@@ -6,7 +6,11 @@ import AddHabitForm from "./components/AddHabitForm";
 import TodayFinished from "./components/TodayFinished";
 
 function App() {
-  const [habits, setHabits] = React.useState([]);
+  // const [habits, setHabits] = React.useState([]);
+  const [habits, setHabits] = React.useState(() => {
+    const saved = localStorage.getItem("habits");
+    return saved ? JSON.parse(saved) : [];
+  });
 
   function addHabit(habit) {
     const newHabit = {
@@ -32,6 +36,10 @@ function App() {
     );
     setHabits(updatedList);
   }
+
+  React.useEffect(() => {
+    localStorage.setItem("habits", JSON.stringify(habits));
+  }, [habits]);
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
