@@ -2,7 +2,7 @@ import React from "react";
 
 import useHabitsHook from "../hooks/useHabits";
 
-export type Habit = { id: string; name: string; completedToday: boolean };
+export type Habit = { id: string; name: string; completedDates: string[] };
 export type Filter = "all" | "done" | "pending";
 
 type HabitsContextType = ReturnType<typeof useHabitsHook>;

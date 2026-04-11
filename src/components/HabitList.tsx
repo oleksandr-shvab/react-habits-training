@@ -9,11 +9,11 @@ function HabitList() {
     <div>
       <FilterBar />
       <ul>
-        {filteredHabits.map(({ id, name, completedToday }) => (
+        {filteredHabits.map(({ id, name, completedDates }) => (
           <li key={id}>
             <HabitItem
               id={id}
-              completedToday={completedToday}
+              completedDates={completedDates}
               handleCheckbox={handleCheckbox}
               deleteHabit={deleteHabit}
             >

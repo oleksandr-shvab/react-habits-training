@@ -1,11 +1,11 @@
-import React from "react";
-
 import { useHabits } from "../context/HabitsContext";
+import { getToday } from "../utils";
 
 function TodayFinished() {
   const { habits } = useHabits();
+  const today = getToday();
   const habitsToday = habits.length;
-  const habitsDone = habits.filter((item) => item.completedToday).length;
+  const habitsDone = habits.filter((h) => h.completedDates.includes(today)).length;
 
   return (
     <div>
