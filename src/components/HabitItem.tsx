@@ -2,13 +2,23 @@ import React from "react";
 
 import { Button } from "./ui/button";
 
-function HabitItem({
+type Props = {
+  id: string;
+  completedToday: boolean;
+  handleCheckbox: (id: string) => void;
+  deleteHabit: (id: string) => void;
+  children: React.ReactNode;
+};
+
+const HabitItem = React.memo(function HabitItem({
   id,
   completedToday,
   handleCheckbox,
   deleteHabit,
   children,
-}) {
+}: Props) {
+  console.log("HabitItem rendered:", children);
+
   return (
     <div>
       <input
@@ -24,6 +34,6 @@ function HabitItem({
       </Button>
     </div>
   );
-}
+});
 
 export default HabitItem;
