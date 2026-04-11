@@ -1,17 +1,16 @@
 import React from "react";
 
-import HabitItem from "./HabitItem";
 import { Button } from "./ui/button";
+import { useHabits } from "../context/HabitsContext";
 
-function AddHabitForm({ addHabit }) {
+function AddHabitForm() {
+  const { addHabit } = useHabits();
   const [habit, setHabit] = React.useState("");
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const inputRef = React.useRef(null);
-
-  function handleSubmit(event) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     addHabit(habit);
-
     setHabit("");
     inputRef.current?.focus();
   }

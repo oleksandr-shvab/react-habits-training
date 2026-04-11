@@ -1,8 +1,9 @@
-import React from "react";
-
 import HabitItem from "./HabitItem";
+import { useHabits } from "../context/HabitsContext";
 
-function HabitList({ habits, handleCheckbox, deleteHabit }) {
+function HabitList() {
+  const { habits, handleCheckbox, deleteHabit } = useHabits();
+
   return (
     <div>
       <ul>

@@ -1,12 +1,14 @@
 import React from "react";
 
-function TodayFinished({ habits }) {
+import { useHabits } from "../context/HabitsContext";
+
+function TodayFinished() {
+  const { habits } = useHabits();
   const habitsToday = habits.length;
   const habitsDone = habits.filter((item) => item.completedToday).length;
 
   return (
     <div>
-      {/* <p>{todayDone} done today</p> */}
       <p>
         {habitsDone} / {habitsToday} done today
       </p>
