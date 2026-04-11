@@ -1,13 +1,15 @@
 import HabitItem from "./HabitItem";
+import FilterBar from "./FilterBar";
 import { useHabits } from "../context/HabitsContext";
 
 function HabitList() {
-  const { habits, handleCheckbox, deleteHabit } = useHabits();
+  const { filteredHabits, handleCheckbox, deleteHabit } = useHabits();
 
   return (
     <div>
+      <FilterBar />
       <ul>
-        {habits.map(({ id, name, completedToday }) => (
+        {filteredHabits.map(({ id, name, completedToday }) => (
           <li key={id}>
             <HabitItem
               id={id}

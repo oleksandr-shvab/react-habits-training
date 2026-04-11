@@ -1,6 +1,8 @@
 import React from "react";
 
 export type Habit = { id: string; name: string; completedToday: boolean };
+export type Filter = "all" | "done" | "pending";
+
 type Action =
   | { type: "ADD_HABIT"; name: string }
   | { type: "DELETE_HABIT"; id: string }
@@ -8,6 +10,9 @@ type Action =
 
 type HabitsContextType = {
   habits: Habit[];
+  filteredHabits: Habit[];
+  filter: Filter;
+  setFilter: (filter: Filter) => void;
   addHabit: (name: string) => void;
   deleteHabit: (id: string) => void;
   handleCheckbox: (id: string) => void;
@@ -36,25 +41,33 @@ export function HabitsProvider({ children }: { children: React.ReactNode }) {
     return saved ? JSON.parse(saved) : [];
   });
 
+  const [filter, setFilter] = React.useState<Filter>("all");
+
   React.useEffect(() => {
     localStorage.setItem("habits", JSON.stringify(habits));
   }, [habits]);
 
-  function addHabit(name: string) {
+  const filteredHabits = React.useMemo(() => {
+    if (filter === "done") return habits.filter((h) => h.completedToday);
+    if (filter === "pending") return habits.filter((h) => !h.completedToday);
+    return habits;
+  }, [habits, filter]);
+
+  const addHabit = React.useCallback((name: string) => {
     if (!name) return;
     dispatch({ type: "ADD_HABIT", name });
-  }
+  }, []);
 
-  function deleteHabit(id: string) {
+  const deleteHabit = React.useCallback((id: string) => {
     dispatch({ type: "DELETE_HABIT", id });
-  }
+  }, []);
 
-  function handleCheckbox(id: string) {
+  const handleCheckbox = React.useCallback((id: string) => {
     dispatch({ type: "TOGGLE_HABIT", id });
-  }
+  }, []);
 
   return (
-    <HabitsContext.Provider value={{ habits, addHabit, deleteHabit, handleCheckbox }}>
+    <HabitsContext.Provider value={{ habits, filteredHabits, filter, setFilter, addHabit, deleteHabit, handleCheckbox }}>
       {children}
     </HabitsContext.Provider>
   );
